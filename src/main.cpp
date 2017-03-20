@@ -2,6 +2,7 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 #include <SimpleTimer.h>
+#include <Atuadores.h>
 
 // Data wire is plugged into port 2 on the Arduino
 #define ONE_WIRE_BUS 14
@@ -11,6 +12,8 @@ OneWire oneWire(ONE_WIRE_BUS);
 
 // Pass our oneWire reference to Dallas Temperature.
 DallasTemperature sensors(&oneWire);
+
+DIO luz(12);
 
 /*
  * The setup function. We only start the sensors here
@@ -23,6 +26,41 @@ void setup(void)
 
   // Start up the library
   sensors.begin();
+
+  luz.on();
+  luz.print();
+  delay(3000);
+  luz.off();
+  luz.print();
+  delay(3000);
+  if (!luz.state()) {
+    luz.toggle();
+    delay(300);
+    luz.toggle();
+    delay(300);
+    luz.toggle();
+    delay(300);
+    luz.toggle();
+    delay(300);
+    luz.toggle();
+    delay(300);
+    luz.toggle();
+    delay(3000);
+  }
+  luz.toggle();
+  luz.print();
+  delay(3000);
+  luz.toggle();
+  luz.print();
+  delay(3000);
+  if (luz.state()) {
+    luz.toggle();
+    delay(300);
+    luz.toggle();
+    delay(300);
+    luz.toggle();
+    delay(300);
+  }
 }
 
 /*
