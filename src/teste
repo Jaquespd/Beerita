@@ -1,0 +1,7 @@
+
+currentTime = millis()
+currentTime - previousTime >= interval
+previousTime = currentTime
+
+digitalWrite(pin,!pin_state)
+count++
