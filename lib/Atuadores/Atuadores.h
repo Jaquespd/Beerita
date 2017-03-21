@@ -9,6 +9,14 @@ class DIO {
   private:
     int _pin;
     String _host = "Atuador";
+    float _temperaturaInicial;
+    float _temperaturaFinal;
+    float _gradiente;
+    unsigned int _tempoDoDegrau;
+    float _temperaturaAtual;
+    float _temperaturaDesejada;
+    int _count;
+
   public:
 
     DIO(int pin);

@@ -5,3 +5,39 @@ previousTime = currentTime
 
 digitalWrite(pin,!pin_state)
 count++
+
+
+
+count = 0;
+
+int currentTemperature = getTemperature();
+
+if (currentTemperature < desiredTemperature) {
+	heater.on();
+} else {
+	heater.off();
+}
+
+int n = tempoDoDegrau;
+
+timer.(60000,updateDesiredTemperature,n);
+
+DT = temperatura final - temperatura inicial / n;
+
+void updateDesiredTemperature () {
+	if (count < n) {
+	count++;
+	desiredTemperature = desiredTemperature + count * DT;
+
+	} else {
+	count = 0;
+	}
+}
+
+void brasagem() {
+	if (!_brasagem) {
+	return;
+	}
+
+
+}
