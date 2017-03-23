@@ -1,43 +1,77 @@
+#include <SimpleTimer.h>
+#include <Atuadores.h>
 
-currentTime = millis()
-currentTime - previousTime >= interval
-previousTime = currentTime
+DIO luz(12);
+SimpleTimer timer;
 
-digitalWrite(pin,!pin_state)
-count++
+void callback_temperature();
 
+/*
+ * The setup function. We only start the sensors here
+ */
+void setup()
+{
+  // start serial port
+  Serial.begin(9600);
+  Serial.println("Dallas Temperature IC Control Library Demo");
 
+  // Start up the library
+  sensors.begin();
+  timer.setInterval(5000, callback_temperature);
 
-count = 0;
-
-int currentTemperature = getTemperature();
-
-if (currentTemperature < desiredTemperature) {
-	heater.on();
-} else {
-	heater.off();
+  luz.on();
+  luz.print();
+  delay(3000);
+  luz.off();
+  luz.print();
+  delay(3000);
+  if (!luz.state()) {
+    luz.toggle();
+    delay(300);
+    luz.toggle();
+    delay(300);
+    luz.toggle();
+    delay(300);
+    luz.toggle();
+    delay(300);
+    luz.toggle();
+    delay(300);
+    luz.toggle();
+    delay(3000);
+  }
+  luz.toggle();
+  luz.print();
+  delay(3000);
+  luz.toggle();
+  luz.print();
+  delay(3000);
+  if (luz.state()) {
+    luz.toggle();
+    delay(300);
+    luz.toggle();
+    delay(300);
+    luz.toggle();
+    delay(300);
+  }
 }
 
-int n = tempoDoDegrau;
-
-timer.(60000,updateDesiredTemperature,n);
-
-DT = temperatura final - temperatura inicial / n;
-
-void updateDesiredTemperature () {
-	if (count < n) {
-	count++;
-	desiredTemperature = desiredTemperature + count * DT;
-
-	} else {
-	count = 0;
-	}
+/*
+ * Main function, get and show the temperature
+ */
+void loop()
+{
+  timer.run();
 }
 
-void brasagem() {
-	if (!_brasagem) {
-	return;
-	}
 
-
+void callback_temperature() {
+  // call sensors.requestTemperatures() to issue a global temperature
+  // request to all devices on the bus
+  Serial.print("Requesting temperatures...");
+  sensors.requestTemperatures(); // Send the command to get temperatures
+  Serial.println("DONE");
+  // After we got the temperatures, we can print them here.
+  // We use the function ByIndex, and as an example get the temperature from the first sensor only.
+  Serial.print("Temperature for the device 1 (index 0) is: ");
+  Serial.println(sensors.getTempCByIndex(0));
 }
