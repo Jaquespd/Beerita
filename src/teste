@@ -1,77 +1,67 @@
-#include <SimpleTimer.h>
-#include <Atuadores.h>
-
-DIO luz(12);
-SimpleTimer timer;
-
-void callback_temperature();
-
-/*
- * The setup function. We only start the sensors here
- */
-void setup()
-{
-  // start serial port
-  Serial.begin(9600);
-  Serial.println("Dallas Temperature IC Control Library Demo");
-
-  // Start up the library
-  sensors.begin();
-  timer.setInterval(5000, callback_temperature);
-
-  luz.on();
-  luz.print();
-  delay(3000);
-  luz.off();
-  luz.print();
-  delay(3000);
-  if (!luz.state()) {
-    luz.toggle();
-    delay(300);
-    luz.toggle();
-    delay(300);
-    luz.toggle();
-    delay(300);
-    luz.toggle();
-    delay(300);
-    luz.toggle();
-    delay(300);
-    luz.toggle();
-    delay(3000);
-  }
-  luz.toggle();
-  luz.print();
-  delay(3000);
-  luz.toggle();
-  luz.print();
-  delay(3000);
-  if (luz.state()) {
-    luz.toggle();
-    delay(300);
-    luz.toggle();
-    delay(300);
-    luz.toggle();
-    delay(300);
-  }
-}
-
-/*
- * Main function, get and show the temperature
- */
-void loop()
-{
-  timer.run();
-}
-
-
-void callback_temperature() {
-  // call sensors.requestTemperatures() to issue a global temperature
-  // request to all devices on the bus
-  Serial.print("Requesting temperatures...");
-  sensors.requestTemperatures(); // Send the command to get temperatures
-  Serial.println("DONE");
-  // After we got the temperatures, we can print them here.
-  // We use the function ByIndex, and as an example get the temperature from the first sensor only.
-  Serial.print("Temperature for the device 1 (index 0) is: ");
-  Serial.println(sensors.getTempCByIndex(0));
-}
+1º LIMPEZA DE TODO O MATERIAL DO EQUIPAMENTO: Limpar e
+esterilizar todo o material do Kit Chefe Cervejeiro.
+2º MONTAGEM DA PANELA: Encaixar a conexão de cobre (Filtro) no interior
+da panela.
+3º ADICIONAR AGUA: Colocar 18 litros de água mineral na panela com o filtro
+e aquecer ate 71ºC.
+4º MONTAR BOMBA NA PANELA: Ligar a bomba na torneira da panela e no
+gotejador (chuveirinho).
+5º ADICIONAR O MALTE NA AGUA: Na temperatura de 71ºC, adicionar todo
+o malte na água.
+6º INICIO DA BRASSAGEM (60 MINUTOS): Processo que se cria o mosto (o
+“suco” do malte) e retira os açucares do malte para servir de alimento as
+leveduras durante a fermentação. Para fazê-lo, mantenha a temperatura do
+mosto a 66ºC por 01 hora, sempre verificando a temperatura.
+7º PREPARAR AGUA PARA LAVAGEM DO MALTE: Aquecer 15 litros de
+água ate 75ºC na outra panela, enquanto aguarda os 60 minutos da brassagem.
+8º FAZER O “MASH OUT” NO MOSTO ATÉ 75ºC: Após 01 hora da brassagem
+em 66ºC, subir a temperatura do mosto ate 75ºC durante 10 minutos. (subir na
+media de 1ºc por minuto). Mantenha a bomba ligada nesse processo. Não
+ultrapassar os 75ºC!
+9º RECIRCULAR O MOSTO: Deixar de 15 a 20 minutos a bomba ligada, para
+recircular o mosto na panela, com o fogo já desligado.
+10º TRASFERIR O MOSTO PARA PANELA DE FERVURA FAZENDO A
+LAVAGEM: Passar o mosto da panela de brassagem para a panela de fervura,
+utilizando a bomba para a trasfega, jogando a água de lavagem (que deve estar a
+75ºC) por cima dos grãos sem movimentá-los muito (com o auxilio da
+escumadeira) enquanto o mosto é transferido para a panela de fervura. A panela
+deve conter no final de 20 a 22 litros de mosto pronto para a fervura.
+11º INICIAR A FERVURA: Ligar o fogo no máximo, e aguardar o início da
+fervura do mosto.
+12º ADICIONAR O LUPULO: Após o início da fervura, adicionar 15 gramas de
+lúpulo no mosto. Com 40 minutos de fervura, adicionar mais 10 gramas do
+lúpulo. Com 55 minutos de fervura (faltando 5 min para o final), adicionar mais
+10 gramas do lúpulo. Total de 35g de lúpulo adicionado ao mosto.
+13º AGUARDAR 60 MINUTOS DE FERVURA: Esperar 01 hora de fervura
+intensa, com metade da panela tampada, para não evaporar muito mosto. Nesse
+processo é onde os sabores e aromas da cerveja são criados, é nele também que o
+mosto é esterilizado, deixando-o livre de contaminações.
+14º RESFRIAR O MOSTO APÓS FERVURA: Após a fervura, colocar o
+CHILLER sanitizado dentro da panela com o mosto e conectá-lo em uma fonte de
+água (torneira da rede pública) utilizando as 02 mangueiras. Deixar a
+temperatura cair abaixo de 30ºC (a ideal é 25ºC). Quanto mais rápido esse
+processo, melhor.
+15º FAZER O “WHIRPOOL”: Assim que ligar a água do chiller para começar o
+resfriamento, misturar o mosto no sentido horário na panela com uma colher
+sanitizada, criando um redemoinho. Aguardar o final do resfriamento. (media de
+15 a 25 minutos). Todas as partículas solidas do mosto terão ido para o fundo da
+panela.
+15º TRANSFERIR O MOSTO PARA O FERMENTADOR: Passar o mosto já
+resfriado (abaixo de 30ºC) para o balde fermentador. (sem levar os resíduos do
+fundo)
+16º INOCULAR O FERMENTO SOBRE O MOSTO: Adicionar ao mosto todo o
+conteúdo do saquinho de fermento. Tampar o fermentador, e deixar fermentar.
+17º AGUARDAR A FERMENTAÇÃO: Aguardar o mosto fermentar na
+gelareira ou freezer, numa media de 10 a 12 dias na temperatura de 9º a 12º
+(Ideal é 12ºC). Transfira o mosto para outro balde sem levar os resíduos (resto de
+fermento) e deixe mais 10 dias na temperatura de 10ºc para matura.
+18º FAZER O PRIMING PARA ENVASE (AÇUCAR INVERTIDO): Para
+exatos 20 litros, ferva por 03 minutos 400ml de água com 125 gramas de açúcar e
+03 gotas de limão (Limão opcional). Após ferver e resfriar esta “calda”, misturar
+no mosto já transferido para a panela sanitizada.
+19º ENGARRAFAR A CERVEJA: Encher as garrafas sanitizadas com a cerveja,
+e tampar utilizando o arrolhador. Deixar as garrafas em pé fora da geladeira por
+no mínimo 15 dias, a temperatura entre 15 a 24ºc.
+20º AGUARDAR A REFERMENTAÇÃO NA GARRAFA (PRODUÇÃO DE
+CO2): Nesse processo a cerveja vai refermentar na garrafa, gerando o gás da sua
+cerveja, demora no mínimo 15 dias. Após esse período, coloque na geladeira.
